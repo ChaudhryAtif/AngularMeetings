@@ -1,0 +1,135 @@
+<head>
+
+    <style>
+        .checkin-name {
+            margin: 0px;
+        }
+
+        .col {
+            padding-top: 6px;
+            /*padding-right: 5px;*/
+            /*padding-left: 5px;*/
+            /*margin-right: 5px;*/
+        }
+
+        #user-list li {
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+            border: 1px solid transparent;
+        }
+
+        #user-list li:hover {
+            border: 1px solid #C5C5C5;
+            border-radius: 4px;
+        }
+
+        #pick-random-user{
+            margin-top: 5px;
+        }
+
+        .award-form {
+            margin-bottom: 10px;
+        }
+
+        .checkin-user-info .user-btn {
+            margin-right: 5px;
+        }
+
+    </style>
+
+</head>
+
+<div id="checkinBox" class="col-md-6 col-md-offset-3">
+    <div class="panel">
+        <div class="panel-body">
+
+            <div class="text-center">
+                <h1 class="form-title" id="form-title">Check-ins</h1>
+                <h5 class="form-subtitle" id="form-subtitle">Here's a list of your latest check-ins</h5>
+            </div>
+
+            <div class="col-xs-12">
+                <h3>Search Checkins</h3>
+                <input type="text" class="form-control input input-lg" ng-model="query" placeholder="Search for users">
+
+                <div ng-show="currentUser" class="pull-right" id="pick-random-user">
+                    <button ng-hide="recordId" class="btn btn-info btn-sm" ng-click="pickRandom()"><i class="fa fa-fw  fa-lg fa-random"></i> Pick Random</button>
+                    <button ng-show="recordId" class="btn btn-info btn-sm" ng-click="recordId=''"><i class="fa fa-fw  fa-lg fa-random"></i> Reset</button>
+                </div>
+
+                <div class="form-horizontal">
+                    <label class="col-xs-12">View Filters:</label>
+                    <div class="form-group">
+
+                        <div class="col-xs-12 col-sm-6">
+                            <Select class="form-control" ng-model="order">
+                                <option value="firstname">First Name</option>
+                                <option value="lastname">Last Name</option>
+                                <option value="date">Date</option>
+                            </Select>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="pull-right">
+                                <label class="radio-inline">
+                                    <input type="radio" id="dir-ascending" ng-model="direction" name="direction">Asc
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" id="dir-descending" ng-model="direction" name="direction" value="reverse">Desc
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <ul id="user-list" class="list-unstyled">
+                <li class="col-xs-12 col-sm-6" ng-class="checkin.userState" ng-repeat="checkin in checkins | orderBy: order:direction | filter: { $id: recordId, $: query }">
+
+                    <div class="checkin-user-info">
+
+                        <div class="col user-btn pull-left" ng-show="currentUser">
+                            <!--<div>-->
+                                <button class="btn btn-xs btn-danger" ng-click="deleteCheckin(checkin.$id)" data-placement="top" title="Delete this check-in" onmouseenter="$(this).tooltip('show')"><i class="fa fa-fw fa-lg fa-trash-o"></i></button>
+                                <button class="btn btn-xs btn-primary" ng-click="showLove(checkin)" data-placement="top" title="Show the love" onmouseenter="$(this).tooltip('show')"><i class="fa fa-fw fa-lg fa-heart"></i></button>
+                            <!--</div>-->
+                        </div>
+
+                        <div class="col user-info pull-left" >
+                            <h3 class="checkin-name">{{ checkin.firstname }} {{ checkin.lastname }}</h3>
+                            <p>{{ checkin.date | date: "MMM d, yy h:mm a" }}</p>
+
+                            <div class="showCheckins award-form" ng-show="checkin.show">
+                                <form name="myform" ng-submit="giveLove(checkin, checkin.giftText)" novalidate>
+                                    <div class="input-group">
+                                        <input type="text" name="giftText" class="form-control input input-sm" placeholder="Item Name" ng-model="checkin.giftText" ng-required="true">
+                                        <span class="input-group-btn">
+                                            <button type="submit" ng-disabled="myform.$invalid" class="btn btn-primary btn-sm"><i class="fa fa-fw  fa-lg fa-plus"></i></button>
+                                        </span>
+                                    </div>
+                                </form>
+
+                                <ul class="award-list list-unstyled list-inline">
+                                    <li ng-repeat="(key, award) in checkin.awards">
+                                        <h4>
+                                            <label class="label label-info">
+                                                <a class="" ng-click="deleteLove(checkin.$id, key)" data-placement="top" title="Delete this award" onmouseenter="$(this).tooltip('show')"><i class="fa fa-fw fa-times"></i></a>
+                                                {{ award.name }}
+                                            </label>
+                                        </h4>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

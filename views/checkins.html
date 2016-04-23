@@ -1,0 +1,31 @@
+<div id="checkinBox" class="col-md-6 col-md-offset-3">
+    <div class="panel">
+        <div class="panel-body">
+
+            <div class="text-center">
+                <h1 class="form-title" id="form-title">Check-in</h1>
+                <h5 class="form-subtitle" id="form-subtitle">Fill out this form to check-in or go <a ng-href="#/meetings">back to meetings</a></h5>
+                <h4 class="form-message error" id="form-message" ng-show="message"><b>{{ message }}</b></h4>
+            </div>
+
+            <form name="myform" ng-submit="addCheckin()" novalidate>
+                <div class="form-group">
+                    <input type="text" name="firstname" id="first-name" class="form-control input input-lg" placeholder="First Name" ng-model="user.firstname" ng-required="true">
+                    <p class="error validationError text-center" ng-show="myform.firstName.$invalid && myform.firstName.$touched">First name is required!</p>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="lastname" id="last-name" class="form-control input input-lg" placeholder="Last Name" ng-model="user.lastname" ng-required="true">
+                    <p class="error validationError text-center" ng-show="myform.lastName.$invalid && myform.lastName.$touched">Last name is required!</p>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" id="email" class="form-control form-field input input-lg" placeholder="Email" ng-model="user.email" ng-required="true">
+                    <p class="error validationError text-center" ng-show="myform.email.$invalid && myform.email.$touched">Must be a valid email!</p>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" ng-disabled="myform.$invalid" class="btn btn-primary btn-lg">Check in</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
