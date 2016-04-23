@@ -14,10 +14,11 @@
    * Or use '*demo@me.com*' and '*password*' for email and pass respectively
 
 ## Course Overview
+* This is part two of a two-part series course. [**Click here**](https://github.com/chaudhryatif/AngularRegistration) to go to the first part.
 * Description:
     <blockquote>
       Want to create data-driven web applications? AngularJS is a great choice. With these tutorials, you'll learn to build apps that allow multiple users to push and pull data at the same time, in real time. Ray Villalobos starts the course where AngularJS: Adding Registration to Your Application left off: a simple application that checks users in and out of meetings. Ray then shows you how to enhance the existing app with new views and controllers and reward random checked-in users with prizes.
-
+      <br><br>
       Although it's easy to learn, AngularJS can be hard to master. With these project-based lessons, you'll learn how the framework works in the real world, and see how data-driven programming can help your apps react to real-time data streams.
     </blockquote>
 
