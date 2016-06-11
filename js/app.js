@@ -46,10 +46,3 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
         });
 
 }]);
-
-//// Hide navber if clicked elsewhere
-//$(document).click(function (e) {
-//    if (!$(e.target).parents().andSelf().is('.navbar')) {
-//        $('.navbar-collapse').collapse('hide');
-//    }
-//})
